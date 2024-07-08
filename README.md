@@ -1,4 +1,3 @@
-
 # MyPowerShellScripts
 
 Welcome to the MyPowerShellScripts repository! This repository is a collection of various PowerShell scripts that I use for different purposes. Each script is designed to help automate and simplify tasks, making my workflow more efficient.
@@ -9,38 +8,68 @@ The repository is organized with individual scripts saved as `.ps1` files. Each 
 
 ## Available Scripts
 
-### SolutionProjectSetup.ps1
+### AzureFunctionSolutionSetup.ps1
 
-**Description:**
-The `SolutionProjectSetup.ps1` script is designed to set up a new solution project in a consistent and automated manner. It creates the necessary directory structure, initializes the project with a template, and sets up initial configuration files.
+This PowerShell script automates the process of setting up an Azure Function project within a solution structure. It creates a new solution, initializes a Function App project, adds it to the solution, creates a new HTTP-triggered function, and builds the solution.
 
-**Usage:**
-To use this script, you will need to run it in a PowerShell environment. Below are the steps to execute the script:
+#### Prerequisites
 
-1. **Open PowerShell:** Open PowerShell on your machine. You may need to run it as an administrator depending on the script's requirements.
-2. **Navigate to the Script Location:** Change the directory to where the `SolutionProjectSetup.ps1` script is located. For example:
-   ```sh
-   cd path\to\MyPowerShellScripts
-   ```
-3. **Run the Script:** Execute the script by typing:
-   ```sh
-   .\SolutionProjectSetup.ps1
-   ```
+- PowerShell
+- .NET Core SDK
+- Azure Functions Core Tools
 
-**Parameters:**
-The script may accept parameters to customize the setup process. Here are the possible parameters and their descriptions:
+#### Usage
 
-- `-SolutionName`: The name of the solution to be created. (Required)
-- `-ProjectName`: The name of the initial project within the solution. (Required)
-- `-TemplatePath`: The path to the project template to be used. (Optional)
-
-**Example:**
-```sh
-.\SolutionProjectSetup.ps1 -SolutionName "MySolution" -ProjectName "MyProject" -TemplatePath "C:\Templates\DefaultTemplate"
+```powershell
+.\AzureFunctionSolutionSetup.ps1 -BaseDirectory <path> -SolutionName <name> -ProjectName <name> [-Runtime <runtime>]
 ```
 
-**Dependencies:**
-Ensure that any dependencies or prerequisites required by the script are installed on your machine. This may include specific versions of PowerShell or other software tools.
+#### Parameters
+
+- `-BaseDirectory` (Mandatory): The base directory where the solution will be created.
+- `-SolutionName` (Mandatory): The name of the solution.
+- `-ProjectName` (Mandatory): The name of the Function App project.
+- `-Runtime` (Optional): The runtime for the Function App. Default is "dotnet".
+  - Valid options: "dotnet", "java", "node", "powershell", "python", "custom"
+
+#### What the Script Does
+
+1. Creates a new directory for the solution.
+2. Creates a new .NET solution.
+3. Initializes a new Function App project.
+4. Adds the Function App project to the solution.
+5. Creates a new HTTP-triggered function in the Function App.
+6. Builds the solution.
+
+#### Example
+
+```powershell
+.\AzureFunctionSolutionSetup.ps1 -BaseDirectory "C:\Projects" -SolutionName "MyAzureSolution" -ProjectName "MyFunctionApp" -Runtime "dotnet"
+```
+
+This command will create a new solution named "MyAzureSolution" with a Function App project named "MyFunctionApp" in the "C:\Projects" directory, using the .NET runtime.
+
+#### Note
+
+Make sure you have the necessary permissions to create directories and files in the specified base directory.
+
+#### Output
+
+Upon successful execution, the script will output:
+
+```
+Solution structure is set up and built successfully.
+```
+
+#### Troubleshooting
+
+If you encounter any issues:
+
+1. Ensure all prerequisites are installed and up to date.
+2. Check that you have the necessary permissions in the specified directory.
+3. Verify that the provided runtime is one of the allowed options.
+
+For more information on Azure Functions, visit the [official documentation](https://docs.microsoft.com/en-us/azure/azure-functions/).
 
 ## Contributing
 
